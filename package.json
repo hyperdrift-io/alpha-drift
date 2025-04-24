@@ -1,0 +1,25 @@
+{
+  "name": "alphadrift",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "ts-node src/index.ts",
+    "test": "jest --coverage",
+    "lint": "eslint . --ext .ts"
+  },
+  "dependencies": {
+    "@elizaos/core": "latest",
+    "dotenv": "latest",
+    "pg": "latest"
+  },
+  "devDependencies": {
+    "jest": "latest",
+    "ts-jest": "latest",
+    "@types/jest": "latest",
+    "typescript": "latest",
+    "eslint": "latest",
+    "ts-node": "latest",
+    "@types/node": "latest",
+    "@types/pg": "latest"
+  }
+}

@@ -66,7 +66,7 @@ ALLORA_API_KEY=
 TELEGRAM_BOT_TOKEN=
 TELEGRAM_CHAT_ID=
 PAPER=true                # false = live trading
-DB_URL=postgres://user:pass@db:5432/alphadrift
+DB_URL=postgres://user:pass@db:5432/alphadrift # password is pass
 
 
 
@@ -87,6 +87,55 @@ Coverage gate ≥90 %.
 docker compose up --build    # Node agent + DriftBrain + Postgres
 
 Set PAPER=false and add wallet key via Docker secret to trade live.
+
+⸻
+
+🕹 Usage
+
+### 1  Run in paper mode (default)
+
+```bash
+pnpm dev                     # 5‑minute paper loop
+tail -f logs/agent.log       # stream structured logs
+```
+
+The bot logs every FeatureVector, selector decision, and TradeIntent without signing any transaction.
+
+### 2  Switch to live trading
+
+```bash
+export PAPER=false           # or set in .env
+docker secret create WALLET_KEY /path/privkey.hex
+docker compose up            # hot‑reloads with live signing
+```
+
+> **Reminder** – fund the wallet with native gas (ETH) and turn on a hardware wallet for size ≥ $10 k.
+
+### 3  Pause / resume
+
+```bash
+curl -X POST http://localhost:8080/admin/pause    # stop new trades
+curl -X POST http://localhost:8080/admin/resume   # resume loop
+```
+
+### 4  Retrain DriftBrain
+
+```bash
+docker compose exec driftbrain python train.py --n_trials 10000
+# New model saved to /models and auto‑reloaded by the Node agent
+```
+
+### 5  Customise strategies
+
+Edit any file in `src/strategy/`, then:
+
+```bash
+pnpm test && pnpm dev
+```
+
+The agent hot‑reloads modules on change (ts-node-dev).
+
+⸻
 
 ⸻
 

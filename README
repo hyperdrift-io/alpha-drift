@@ -1,0 +1,109 @@
+AlphaDrift
+
+HyperDrift‑grade, AI‑powered crypto‑trading bot
+
+Momentum · Carry · Arbitrage — all wrapped in risk guard‑rails and driven by predictive ML.
+
+⸻
+
+✨ Why AlphaDrift?
+	•	Compoundable edge – momentum + perp‑funding carry + MEV rebates.
+	•	Predictive selector – Allora + LightGBM forecast Sharpe every 5 min.
+	•	Fail‑safe – max‑DD, gas sentinel, oracle gap veto.
+	•	DeFi‑native – on‑chain execution via 0x RFQ + Titan builder rebates.
+
+⸻
+
+🚀 Quick start (dev, paper mode)
+
+# clone & install
+git clone https://github.com/hyperdrift-io/alphadrift.git
+cd alphadrift
+pnpm i
+
+# copy env template and add your RPC / API keys
+cp .env.example .env
+
+# run database (Timescale)
+docker compose up -d db
+
+# start the agent (5‑min paper loop)
+pnpm dev
+
+You should see a log line every five minutes:
+
+[ProviderPool] FeatureVector { ts: … price: … }
+[Selector] momentum scored 1.34 Sharpe → TradeIntent emitted
+[RiskGuard] OK ✔
+
+
+
+⸻
+
+🗺 Project map
+
+Folder	Purpose
+src/providers/	Pyth, Dexscreener, Chainbase, BirdEye adapters
+src/store/	Timescale FeatureStore
+src/strategy/	momentum, mean‑rev, funding‑harvest, arbitrage
+src/selector/	predictive selector & LLM veto
+src/execution/	router + 0x / CoW / Paraswap + MEV builder
+python-quant/	DriftBrain (FastAPI + Optuna + LightGBM)
+migrations/	SQL schema for Timescale tables
+
+Full architecture diagram lives in architecture.md; build order in roadmap.md.
+
+⸻
+
+⚙️ Environment variables (.env.example)
+
+ALCHEMY_KEY=
+ZEROX_API_KEY=
+PARASWAP_API_KEY=
+MEV_BUILDER_URL=https://rpc.titanbuilder.xyz
+OPENAI_API_KEY=
+ALLORA_API_KEY=
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+PAPER=true                # false = live trading
+DB_URL=postgres://user:pass@db:5432/alphadrift
+
+
+
+⸻
+
+🧪 Tests & lint
+
+pnpm test    # Jest (Node)
+pytest       # DriftBrain tests
+pnpm lint    # ESLint strict
+
+Coverage gate ≥90 %.
+
+⸻
+
+📦 Docker compose
+
+docker compose up --build    # Node agent + DriftBrain + Postgres
+
+Set PAPER=false and add wallet key via Docker secret to trade live.
+
+⸻
+
+🛡 Safety first
+	•	Max draw‑down 5 % intraday → auto‑pause.
+	•	Gas usage >1 % equity/day → throttle.
+	•	Oracle gap 1 % vs DEX mid → veto.
+
+⸻
+
+🤝 Contributing (solo‑friendly!)
+	•	Follow diff‑first in PRs: git patch then full file.
+	•	Run pnpm test && pytest before pushing.
+	•	Significant design changes require an ADR added to /docs/adr/.
+
+⸻
+
+License
+
+MIT

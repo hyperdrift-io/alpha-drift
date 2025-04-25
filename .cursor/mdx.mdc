@@ -1,0 +1,9 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+// MDX rules for /public/dev-journey
+// - Always include links to domain terms (in parenthesis after metaphors or technical terms) so readers can learn about DeFi, trading, and data concepts as they read.
+// - This supports accessibility and education for non-technical audiences.
+// - See .cursor/rules.md and public/dev-journey/README.md for full narrative and style guidelines.

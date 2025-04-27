@@ -3,8 +3,6 @@ title: "Milestone 0: Laying the Foundation for AlphaDrift"
 date: "2024-06-10"
 ---
 
-import { Highlight } from 'components/Highlight'
-
 # 🚀 Milestone 0: The First Brick in AlphaDrift's Journey
 
 Imagine you're building a self-driving car. Before it can race down the highway, it needs eyes to see the road, a brain to remember what it's learned, and a safe, reliable engine. That's exactly where we started with AlphaDrift—except our "car" is an AI-powered crypto trading agent, and the "road" is the wild, unpredictable world of decentralized finance ([DeFi](https://en.wikipedia.org/wiki/Decentralized_finance)).
@@ -30,11 +28,11 @@ So, we rolled up our sleeves and got to work:
 
 ### 1. Giving AlphaDrift Its "Eyes": The ProviderPool
 
-We built the <Highlight>ProviderPool</Highlight>, a kind of market radar (see [market data aggregation](https://www.investopedia.com/terms/m/market-data.asp)). Instead of trusting a single data feed, AlphaDrift now listens to several—cross-checking prices, volumes, and other signals. If one provider goes dark or sends weird data, the others fill in the gaps. This is our first line of defense against the chaos of crypto.
+We built the **ProviderPool**, a kind of market radar (see [market data aggregation](https://www.investopedia.com/terms/m/market-data.asp)). Instead of trusting a single data feed, AlphaDrift now listens to several—cross-checking prices, volumes, and other signals. If one provider goes dark or sends weird data, the others fill in the gaps. This is our first line of defense against the chaos of crypto.
 
 ### 2. Building Its "Memory": The FeatureStore
 
-Next, we gave AlphaDrift a memory. Every few minutes, it takes a snapshot of the market and stores it in <Highlight>TimescaleDB</Highlight>, a database built for [time-series data](https://en.wikipedia.org/wiki/Time_series_database). This isn't just for show—by remembering the past, AlphaDrift can spot trends, learn from mistakes, and (soon) let its AI brain make smarter predictions.
+Next, we gave AlphaDrift a memory. Every few minutes, it takes a snapshot of the market and stores it in **TimescaleDB**, a database built for [time-series data](https://en.wikipedia.org/wiki/Time_series_database). This isn't just for show—by remembering the past, AlphaDrift can spot trends, learn from mistakes, and (soon) let its AI brain make smarter predictions.
 
 ### 3. Sketching the "Brain": Strategy Stubs
 

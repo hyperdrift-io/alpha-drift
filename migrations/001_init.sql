@@ -15,3 +15,15 @@ SELECT time_bucket('5 minutes', ts) AS bucket,
        avg(funding8h) AS funding8h_ma_5m
 FROM feature_raw
 GROUP BY bucket;
+
+CREATE TABLE IF NOT EXISTS trade_log (
+  id SERIAL PRIMARY KEY,
+  ts timestamptz NOT NULL,
+  pair TEXT NOT NULL,
+  side TEXT NOT NULL,
+  notionalUSD NUMERIC NOT NULL,
+  hash TEXT UNIQUE NOT NULL,
+  tx_hash TEXT,
+  status TEXT DEFAULT 'pending',
+  created_at timestamptz DEFAULT now()
+);

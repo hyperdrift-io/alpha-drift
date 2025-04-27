@@ -10,21 +10,34 @@
 ---
 ## 2 Macro Diagram
 ```mermaid
+---
+config:
+  look: classic
+  layout: dagre
+  theme: neo
+---
 flowchart TD
-  subgraph Node_Core
-    PP(ProviderPool) --> FS((FeatureStore))
-    FS --> Sel(Selector)
-    Sel --> St{{Strategy Lib}}
-    St --> Exe(Execution Router)
-    Exe --> RG(RiskGuard)
-    St -.-> Idle(Idle Restake)
+ subgraph Node_Core["Node_Core"]
+        FS(("FeatureStore"))
+        PP("ProviderPool")
+        Sel("Selector")
+        St{{"Strategy Lib"}}
+        Exe("Execution Router")
+        RG("RiskGuard")
+        Idle("Idle Restake")
   end
-  subgraph DriftBrain [Python ML side‑car]
-    FS ==> Brn[/ /predict\n/train /]
+ subgraph DriftBrain["Python ML side‑car"]
+        Brn[/"/predict\n/train"/]
   end
-  Exe --> ChainDEX((On‑chain))
-  Exe --> RFQ((CEX RFQ))
-  Brn ..> FS
+    PP --> FS
+    FS --> Sel
+    Sel --> St
+    St --> Exe
+    Exe --> RG & ChainDEX(("On‑chain")) & RFQ(("CEX RFQ"))
+    St -.-> Idle
+    FS ==> Brn
+    Brn --> FS
+
 ```
 *Solid lines* = synchronous calls. *Dashed* = event/idle hooks.
 

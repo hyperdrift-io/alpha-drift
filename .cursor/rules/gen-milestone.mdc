@@ -1,0 +1,16 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+Rule Name: @gen-milestone [nb]
+Description:
+- When invoked, generate a public-facing, narrative MDX summary for the specified AlphaDrift milestone (e.g., M0, M1, etc.).
+- Tell a story, not just list changes—use narrative, analogies, and real-world comparisons.
+- Explain the domain and connect technical work to real-world DeFi/data problems.
+- Link and briefly explain technical terms for non-technical readers (add links in parentheses after metaphors or technical terms).
+- Write for a smart, non-developer audience: focus on impact, risks, and vision.
+- Use a conversational, energetic tone and end with a teaser for what's next.
+- Include why the work matters, what problems it solves, and how it sets the stage for future milestones.
+- Follow the guidelines in docs/user-journey-rules.md for accessibility and domain education.
+- Output should be in MDX format, suitable for docs/public/[milestone].mdx.

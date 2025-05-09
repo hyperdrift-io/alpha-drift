@@ -1,0 +1,27 @@
+name: Docker Compose CI
+on:
+  push:
+    paths:
+      - 'docker-compose.yml'
+      - 'python-quant/**'
+      - 'src/**'
+  pull_request:
+    paths:
+      - 'docker-compose.yml'
+      - 'python-quant/**'
+      - 'src/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Build and run services
+        run: |
+          docker compose up --build -d
+          sleep 10
+          docker compose ps
+      - name: Check DriftBrain health
+        run: |
+          curl --fail http://localhost:8000/health

@@ -1,0 +1,25 @@
+name: Python CI
+on:
+  push:
+    paths:
+      - 'python-quant/**'
+  pull_request:
+    paths:
+      - 'python-quant/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: |
+          cd python-quant
+          pip install --no-cache-dir -r requirements.txt
+      - name: Test
+        run: |
+          cd python-quant
+          pytest --maxfail=1 --disable-warnings --tb=short

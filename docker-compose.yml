@@ -12,3 +12,16 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+  alphadrift:
+    build: .
+    environment:
+      - DB_URL=postgres://...
+    depends_on: [db, driftbrain]
+  driftbrain:
+    build: python-quant/
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_URL=postgres://...
+    depends_on:
+      - db
